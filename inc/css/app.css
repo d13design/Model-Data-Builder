@@ -1,0 +1,52 @@
+/* App.CSS */
+
+.mar-top{   margin-top: 10px; }
+.mar-rgt{   margin-right: 10px; }
+.mar-bot{   margin-bottom: 10px; }
+.mar-lft{   margin-left: 10px; }
+.pad-top{   padding-top: 10px; }
+.pad-rgt{   padding-right: 10px; }
+.pad-bot{   padding-bottom: 10px; }
+.pad-lft{   padding-left: 10px; }
+.mar-all{   margin: 10px; }
+.pad-all{   padding: 10px; }
+
+div.wrap{
+    padding: 0px 0px 20px 0px;
+    max-width: 100%;
+    overflow-x: scroll;
+    border-radius: 10px;
+}
+
+table{
+    background: #fafafa;
+    border-collapse: separate;
+    border-spacing: 20px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+td.dataset{
+    background:#dce3dc;
+    width:260px;
+    min-width:260px;
+    max-width: 260px;
+    border-radius: 10px;
+    padding: 10px;
+    vertical-align: top;
+}
+
+td.pre-load{
+    width: 100%;
+}
+
+textarea.model{
+    width:640px;
+    height: 230px;
+}
+textarea.hack{
+    width:100%;
+    height:300px;
+    border-color:#999;
+    border-radius: 3px;
+}

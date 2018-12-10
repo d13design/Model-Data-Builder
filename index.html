@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html ng-app="datasetApp">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="inc/css/flatly.min.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="inc/css/app.css">
+    <style type="text/css">
+        .ng-hide{	display: none; }
+        .pointer{	cursor: pointer; }
+    </style>
+    <title></title>
+</head>
+<body ng-controller="datasetController">
+    
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    <img alt="Brand" height="20" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAEEUlEQVRYR+2Yb+SdZRjHP1+xidJEU5rSRJRoSpFmjDLqTSlNkfammFLam6a93Cym2TTSmCaaUoo0pkhpopRGGpGmlNJIU6SRK9/jvo/73Od5zrnPOb/xi12vfr/zXPd1f5/v9f8Ry1y0zPFxHuCiHvp/MhgRFwHPAJuAWxMLnwPHgL2S/pqHmXnsjjEYERuAV4BrekCcArZI+ngWkPPaHQEYEfcCbzdefJ+kd1p0F7E7BBgRlwI/AHav5WdgG3A8/X8H8AJwZfrfbt4MbARuTuduTM++Bvz8S+BD4PUZ7V4t6XfbKgHuBJ5LF3wL3J6VMkvpJT4FrmthrkOn1e4uSTtqgF8BNyWjD0h6q74gIu4GXpwQn9NwO36flvRuh+37gTfT7yckrasB/gOsSAqrJJ0pjUTEbuDZaQganz8vaXtl/xLgj/TbGUmraoB+aCXLCMCIMGtPNF7eqvaSpK1F+Dj2/8zxLeniSS4eZmhEuB46Oc6FbJO014arTO90cZkkJ4H1wFXAZ4XrlxrkWeA24EfgE+D6dEFnklwGfF+VA6d6Lh1LDS7bc0lyiSvL11pJp0dcnGguM+lcAZpmd6SCdLW6O4GXFygl0wD0PXcJ2irJ/X4ondNMRDgWvpn3pjnP3SDJsT8ifQAfSyzOeddcxx6XdLAVoKeZRzuu+QAYtCDAWe9waJGWc4clbWkF+EUaAGr9KyT9mhLqcuCXFnRAy7lh7WuJwd8Al51a1kjylOPC6rLwUyPAlnOnJa1uZbDsy+UZZ1h2g8PALj4MHAVOSvK0YvCedpxoHi4cKnZxec6Tei1nJa1cFGAN1q1qLPNKpVQR3Cq7QJWqMwHsc3E2eEDSk/mfiHgQeKroOu4O+yW9UehMGzhmcvFHgHeTLjkB3CLp3+Jyt8h6hzklaW2hcwHg5MszZ237uCT3/xHpq4OTZr+HJR2p3Ni1y4wNvRHxEPBaz4uPzYjW6wPot/SE3SWrcyOvQNrN3j0sm0v3FixOKk3rJNk70xm0RkS8l7KwPrNSksekMYmIGLy11PfinthdIWo5KumeLpu9XxYi4trEYt7y8vm7JLlsDCUivPG5s+S49ZJ/ADhSxarL0vsVEG9/Zu+7mQAmFj1+2W0O8CzO0PXeWSpgg4UI8C5jsAbtrmOg7rFm3UNpOV860RwOYwtavmzqt5mIMMhXgQsLkH5bdxQz9jewB3CQ+++BpC8JGajBefh1DGax7iOTwA3CpYvW+rfk7n09MXkIMAOegM2uxSy5VTrZvAnmZSybdufx+tnp1vL+JoAFK/6K4O3OLSyvqC3vaB2zaGAu8v7a0CQzASyAmhG3LjPkzx7eKZxUmSnHodmxW/35w+XjWL1rtyCcC2CL4aXSOQ9wUSaXPYP/AVW5izhyZJ2TAAAAAElFTkSuQmCC" width="">
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <button type="button" ng-click="create();" class="btn btn-success navbar-btn mar-rgt">
+                            <i class="fa fa-plus mar-rgt"></i> Create data set
+                        </button>
+                    </li>
+                    <li ng-show="datasets.length > 0">
+                        <button type="button" ng-click="generate();" class="btn btn-warning navbar-btn mar-rgt">
+                            <i class="fa fa-file-excel-o mar-rgt"></i> Generate CSVs
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="wrap">
+                    <table>
+                        <tr ng-hide="datasets.length > 0">
+                            <td class="pre-load" width="100%;">
+                                <p class="text-center" style="padding-top: 40px;">
+                                    <button type="button" ng-click="create();" class="btn btn-success">
+                                        <i class="fa fa-plus mar-rgt"></i> Create data set
+                                    </button>
+                                </p>
+                                <h3 class="text-center" style="padding-bottom: 40px;">
+                                    You don't have any data sets yet, why not create your first one now?
+                                </h3>
+                                <h4 class="text-center" style="padding-bottom: 40px;">
+                                    <a href="" ng-click="template();">&hellip;or load a simple sales template</a>
+                                </h4>
+                            </td>
+                        </tr>
+                        <tr ng-show="datasets.length > 0">
+                            <td ng-repeat="dataset in datasets" class="dataset form-horizontal">
+                                <!-- BASE DATA -->
+                                <h4><strong>Dataset #{{$index+1}}<span ng-show="dataset.name">:</span></strong> {{dataset.name}}</h4>
+                                <p><input type="text" ng-model="dataset.name" placeholder="Dataset name" class="form-control"></p>
+                                <p><select ng-model="dataset.type" class="form-control">
+                                    <option value="People">People</option>
+                                    <option value="Number">Numbers</option>
+                                    <option value="Location">Locations</option>
+                                    <option value="Product">Products</option>
+                                    <option value="Date">Dates</option>
+                                </select></p>
+                                <p ng-show="dataset.type=='People'"><label>Records:</label><input type="text" ng-model="dataset.numRecords" placeholder="" class="form-control"></p>
+
+                                <!-- IF PEOPLE -->
+                                <div ng-show="dataset.type=='People'">
+                                    <p>
+                                        <label>
+                                            Add names to locations?
+                                        </label>
+                                        <select ng-model="dataset.peopleData.locationType" ng-show="dataset.peopleData.locations==true && dataset.type=='People'" class="form-control">
+                                            <option value="UK Flat">UK</option>
+                                            <option value="World Flat">World</option>
+                                            <option value="US Flat">US</option>
+                                        </select>
+                                    </p>
+                                </div>
+
+                                <!-- IF NUMBERS -->
+                                <div ng-show="dataset.type=='Number'">
+                                    <p>
+                                        <select ng-model="dataset.numberData.order" class="form-control">
+                                            <option value="rand">Random</option>
+                                        </select>
+                                    </p>
+                                    <p>
+                                        <label ng-show="dataset.numberData.order != 'rand'">Start:</label>
+                                        <label ng-show="dataset.numberData.order == 'rand'">Lowest:</label>
+                                        <input type="text" ng-model="dataset.numberData.startNumber" placeholder="" class="form-control">
+                                    </p>
+                                    <p>
+                                        <label ng-show="dataset.numberData.order != 'rand'">End:</label>
+                                        <label ng-show="dataset.numberData.order == 'rand'">Highest:</label>
+                                        <input type="text" ng-model="dataset.numberData.endNumber" placeholder="" class="form-control">
+                                    </p>
+                                    <p>
+                                        <label>Rows:</label>
+                                        <select ng-model="dataset.numberData.dimensionA" class="form-control">
+                                            <option ng-repeat="ds in datasets" value="{{$index}}">Dataset #{{$index+1}} {{ds.name}}</option>
+                                        </select>
+                                    </p>
+                                    <p>
+                                        <label>Sub-rows:</label>
+                                        <select ng-model="dataset.numberData.dimensionC" class="form-control">
+                                            <option ng-repeat="ds in datasets" value="{{$index}}">Dataset #{{$index+1}} {{ds.name}}</option>
+                                        </select>
+                                    </p>
+                                    <p><label>Columns:</label>
+                                        <select ng-model="dataset.numberData.dimensionB" class="form-control">
+                                            <option ng-repeat="ds in datasets" value="{{$index}}">Dataset #{{$index+1}} {{ds.name}}</option>
+                                        </select>
+                                    </p>
+                                </div>
+
+                                <!-- IF LOCATION -->
+                                <div ng-show="dataset.type=='Location'">
+                                    <p>
+                                        <select ng-model="dataset.locationData.locationType" class="form-control">
+                                            <option value="UK Flat">UK Flat</option>
+                                            <option value="UK Tree">UK Tree</option>
+                                            <option value="World Flat">World Flat</option>
+                                            <option value="World Tree">World Tree</option>
+                                            <option value="US Flat">US Flat</option>
+                                            <option value="US Tree">US Tree</option>
+                                        </select>
+                                    </p>
+                                </div>
+                                
+                                <!-- IF PRODUCT -->
+                                <div ng-show="dataset.type=='Product'">
+                                    <p>
+                                        <select ng-model="dataset.productData.productType" class="form-control">
+                                            <option value="Widgets Flat">Widgets Flat</option>
+                                            <option value="Widgets Tree">Widgets Tree</option>
+                                            <option value="Food Flat">Food Flat</option>
+                                            <option value="Food Tree">Food Tree</option>
+                                        </select>
+                                    </p>
+                                </div>
+                                
+                                <!-- IF DATE -->
+                                <div ng-show="dataset.type=='Date'">
+                                    <p>
+                                        <select ng-model="dataset.dateData.year" class="form-control">
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                            <option value="2019">2019</option>
+                                            <option value="2018">2018</option>
+                                            <option value="2017">2017</option>
+                                            <option value="2016">2016</option>
+                                            <option value="2015">2015</option>
+                                            <option value="2014">2014</option>
+                                            <option value="2013">2013</option>
+                                            <option value="2012">2012</option>
+                                        </select>
+                                    </p>
+                                    <p>
+                                        <select ng-model="dataset.dateData.numMonths" class="form-control">
+                                            <option value="1">1 Month</option>
+                                            <option value="2">2 Months</option>
+                                            <option value="3">3 Months</option>
+                                            <option value="4">4 Months</option>
+                                            <option value="5">5 Months</option>
+                                            <option value="6">6 Months</option>
+                                            <option value="7">7 Months</option>
+                                            <option value="8">8 Months</option>
+                                            <option value="9">9 Months</option>
+                                            <option value="10">10 Months</option>
+                                            <option value="11">11 Months</option>
+                                            <option value="12">12 Months</option>
+                                        </select>
+                                    </p>
+                                </div>
+                                
+                                <p>
+                                    <hr>
+                                    <button type="button" ng-click="remove($index);" class="btn btn-block btn-danger">
+                                        <i class="fa fa-trash-o mar-rgt"></i> Delete data set
+                                    </button>
+                                </p>
+                                
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+    
+                <div ng-show="datasets.length > 0">
+
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" ng-repeat="dataset in datasets" id="tab-{{$index}}" ng-hide="dataset.type=='Date'">
+                            <a href="" ng-click="changeTab($index);" aria-controls="settings" role="tab" data-toggle="tab">{{dataset.name}}.csv</a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane" ng-repeat="dataset in datasets" id="tab-pane-{{$index}}" ng-hide="dataset.type=='Date'">
+                            <p class="mar-top"><a href="" ng-click="download($index);" ><i class="fa fa-cloud-download"></i> Download file - <i>{{dataset.name}}.csv</i></a></p>
+                            <textarea ng-model="dataset.csv" class="form-control mar-top model" style="height: 260px;"></textarea>
+                        </div>
+                    </div>
+                    
+                    
+                    <p>&nbsp;</p>
+                    
+                    <p>
+                        <button type="button" ng-click="generate();" class="btn btn-warning btn-block">
+                            <i class="fa fa-file-excel-o mar-rgt"></i> Generate CSVs
+                        </button>
+                    </p>
+                    
+                    <p>&nbsp;</p>
+
+                </div>
+        
+            </div>
+    
+        </div>
+        <hr>
+        <footer>
+            <p><i class="fa fa-thumbs-up"></i> Built by <a href="//www.d13design.co.uk" target="_blank" title="See more stuff from Dave">Dave Waller</a></p>
+        </footer>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script type='text/javascript' src="inc/js/app.js"></script>
+
+  
+
+</body>
+
+</html>
